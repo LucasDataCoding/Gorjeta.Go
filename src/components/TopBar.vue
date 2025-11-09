@@ -1,8 +1,6 @@
 <template>
-  <nav class="flex items-center bg-gray px-25 space-x-20 w-full h-[90px]">
-    <router-link to="/">
-      <img src="../../public/logo.png" alt="Logo Gorjeta.GO" width="238" height="41" />
-    </router-link>
+  <nav class="flex items-center bg-gray space-x-20 w-full h-[90px]">
+    <MainLogo />
 
     <div class="flex space-x-5">
       <a
@@ -10,7 +8,7 @@
         :key="link.title"
         :href="link.href"
         target="_blank"
-        class="uppercase text-blue font-semibold hover:text-purple transition"
+        class="uppercase text-blue font-semibold hover:text-purple transition text-sm"
       >
         {{ link.title }}
       </a>
@@ -19,6 +17,8 @@
 </template>
 
 <script lang="ts" setup>
+import MainLogo from './MainLogo.vue'
+
 const links = [
   {
     href: 'https://github.com/LucasDataCoding/Gorjeta.Go',

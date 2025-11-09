@@ -1,6 +1,16 @@
 <template>
-  <div>
-    <TopBar />
+  <div class="min-h-screen space-y-10 flex flex-col">
+    <TopBar class="px-25" />
+
+    <FormDashboard class="grow mx-25">
+      <template #form>
+        <FormConversion />
+      </template>
+
+      <template #dashboard> dashboard aqui </template>
+    </FormDashboard>
+
+    <FooterCopyright class="px-25" />
   </div>
 
   <main></main>
@@ -8,4 +18,7 @@
 
 <script setup lang="ts">
 import TopBar from '@/components/TopBar.vue'
+import FooterCopyright from '@/components/FooterCopyright.vue'
+import FormDashboard from '@/layout/FormDashboard.vue'
+import FormConversion from '@/components/FormConversion.vue'
 </script>
