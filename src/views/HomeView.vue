@@ -2,7 +2,7 @@
   <div class="min-h-screen space-y-10 flex flex-col">
     <TopBar class="px-25" />
 
-    <FormDashboard class="grow mx-25">
+    <FormDashboard class="grow mx-5 lg:mx-25">
       <template #form>
         <FormConversion />
       </template>

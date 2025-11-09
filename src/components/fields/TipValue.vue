@@ -4,7 +4,7 @@
       <label for="valor-porcentagem" class="block text-sm font-bold uppercase">Gorjeta</label>
     </div>
 
-    <div class="grid grid-cols-12 gap-10">
+    <div class="lg:grid grid-cols-12 gap-10 space-y-3 lg:space-y-0">
       <div class="col-span-7 space-y-5">
         <TipPreOptions v-model="currentPercentage" />
 

@@ -10,7 +10,7 @@
     <div class="min-h-[50px] rounded-lg overflow-hidden bg-white flex items-center h-full">
       <button
         @click="modelValueTemp--"
-        class="px-5 h-full text-lg font-bold text-purple cursor-pointer"
+        class="px-3 lg:px-5 h-full text-lg font-bold text-purple cursor-pointer"
       >
         -
       </button>
@@ -24,12 +24,12 @@
           pattern="[0-9]*$"
           type="text"
           :placeholder="'' + min"
-          class="font-semibold bg-transparent text-base text-center placeholder:text-gray-500 focus:outline-none w-[50px]"
+          class="font-semibold bg-transparent text-base text-center placeholder:text-gray-500 focus:outline-none w-[25px] lg:w-[50px]"
         />
       </div>
       <button
         @click="modelValueTemp++"
-        class="px-5 h-full text-lg font-bold text-purple cursor-pointer"
+        class="px-3 lg:px-5 h-full text-lg font-bold text-purple cursor-pointer"
       >
         +
       </button>

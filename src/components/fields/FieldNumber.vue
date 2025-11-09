@@ -1,5 +1,9 @@
 <template>
-  <div :class="{ 'flex items-center space-x-10': isHorizontal }">
+  <div
+    :class="{
+      'flex items-center justify-between lg:justify-start space-x-3 lg:space-x-10': isHorizontal,
+    }"
+  >
     <label
       :for="inputName"
       class="block uppercase"
@@ -19,12 +23,12 @@
         v-model="modelValueTemp"
         :name="inputName"
         :id="inputName"
-        class="font-semibold min-w-0 grow bg-transparent pr-3 py-3 text-base placeholder:text-gray-500 focus:outline-none"
+        class="font-semibold min-w-0 w-[50px] lg:w-auto grow bg-transparent pr-3 py-3 text-base placeholder:text-gray-500 focus:outline-none"
         placeholder="0"
       />
 
       <div
-        class="h-full w-[100px] text-white px-5 flex items-center justify-center uppercase bg-purple font-medium"
+        class="h-full px-5 text-white flex items-center justify-center uppercase bg-purple font-medium"
       >
         <slot name="sufix" />
       </div>
