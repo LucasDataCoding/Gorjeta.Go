@@ -15,7 +15,7 @@
 import { ref } from 'vue'
 import PriceExpense from './fields/PriceExpense.vue'
 import TipValue from './fields/TipValue.vue'
-import FieldQuantity from './fields/FieldQuantity.vue'
+import FieldQuantity from '../fields/FieldQuantity.vue'
 
 const formData = ref({
   tipPercentage: null,

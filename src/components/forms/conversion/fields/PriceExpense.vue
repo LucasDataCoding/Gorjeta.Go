@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import { ref, type Ref } from 'vue'
-import FieldNumber from './FieldNumber.vue'
+import FieldNumber from '@/components/forms/fields/FieldNumber.vue'
 import DropdownMenu from '@/components/ui/dropdown-menu/DropdownMenu.vue'
 import DropdownMenuTrigger from '@/components/ui/dropdown-menu/DropdownMenuTrigger.vue'
 import DropdownMenuContent from '@/components/ui/dropdown-menu/DropdownMenuContent.vue'
