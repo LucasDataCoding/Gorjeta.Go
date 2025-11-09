@@ -7,7 +7,9 @@
         <FormConversion />
       </template>
 
-      <template #dashboard> dashboard aqui </template>
+      <template #dashboard>
+        <DashboardTipExchange />
+      </template>
     </FormDashboard>
 
     <FooterCopyright class="px-25" />
@@ -21,4 +23,5 @@ import TopBar from '@/components/TopBar.vue'
 import FooterCopyright from '@/components/FooterCopyright.vue'
 import FormDashboard from '@/layout/FormDashboard.vue'
 import FormConversion from '@/components/forms/conversion/FormConversion.vue'
+import DashboardTipExchange from '@/components/dashboards/DashboardTipExchange.vue'
 </script>
