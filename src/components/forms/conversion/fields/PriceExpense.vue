@@ -56,5 +56,5 @@ const coins: ICoinLabels[] = [
   },
 ]
 
-const currentExchange: Ref<ICoinLabels> = ref(coins[0])
+const currentExchange: Ref<ICoinLabels> = ref(coins[0] as ICoinLabels)
 </script>

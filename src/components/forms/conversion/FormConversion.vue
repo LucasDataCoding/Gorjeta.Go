@@ -7,6 +7,7 @@
       is-horizontal
       v-model="formData.quantityPayers"
       :min="2"
+      input-name="numero-pessoas"
     />
   </form>
 </template>
@@ -18,8 +19,8 @@ import TipValue from './fields/TipValue.vue'
 import FieldQuantity from '../fields/FieldQuantity.vue'
 
 const formData = ref({
-  tipPercentage: null,
-  priceExpense: null,
-  quantityPayers: null,
+  tipPercentage: 0,
+  priceExpense: 0,
+  quantityPayers: 0,
 })
 </script>

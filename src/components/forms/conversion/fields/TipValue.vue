@@ -25,7 +25,6 @@
 </template>
 
 <script lang="ts" setup>
-import { emit } from 'process'
 import { computed, ref } from 'vue'
 import TipPercentage from './TipPercentage.vue'
 import TipPreOptions from './TipPreOptions.vue'
