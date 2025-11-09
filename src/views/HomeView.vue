@@ -20,5 +20,5 @@
 import TopBar from '@/components/TopBar.vue'
 import FooterCopyright from '@/components/FooterCopyright.vue'
 import FormDashboard from '@/layout/FormDashboard.vue'
-import FormConversion from '@/components/FormConversion.vue'
+import FormConversion from '@/components/forms/conversion/FormConversion.vue'
 </script>

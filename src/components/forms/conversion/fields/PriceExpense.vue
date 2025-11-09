@@ -32,13 +32,13 @@
 <script lang="ts" setup>
 import { ref, type Ref } from 'vue'
 import FieldNumber from './FieldNumber.vue'
-import DropdownMenu from '../ui/dropdown-menu/DropdownMenu.vue'
-import DropdownMenuTrigger from '../ui/dropdown-menu/DropdownMenuTrigger.vue'
-import DropdownMenuContent from '../ui/dropdown-menu/DropdownMenuContent.vue'
-import DropdownMenuLabel from '../ui/dropdown-menu/DropdownMenuLabel.vue'
-import DropdownMenuSeparator from '../ui/dropdown-menu/DropdownMenuSeparator.vue'
-import DropdownMenuRadioItem from '../ui/dropdown-menu/DropdownMenuRadioItem.vue'
-import DropdownMenuRadioGroup from '../ui/dropdown-menu/DropdownMenuRadioGroup.vue'
+import DropdownMenu from '@/components/ui/dropdown-menu/DropdownMenu.vue'
+import DropdownMenuTrigger from '@/components/ui/dropdown-menu/DropdownMenuTrigger.vue'
+import DropdownMenuContent from '@/components/ui/dropdown-menu/DropdownMenuContent.vue'
+import DropdownMenuLabel from '@/components/ui/dropdown-menu/DropdownMenuLabel.vue'
+import DropdownMenuSeparator from '@/components/ui/dropdown-menu/DropdownMenuSeparator.vue'
+import DropdownMenuRadioItem from '@/components/ui/dropdown-menu/DropdownMenuRadioItem.vue'
+import DropdownMenuRadioGroup from '@/components/ui/dropdown-menu/DropdownMenuRadioGroup.vue'
 
 interface ICoinLabels {
   prefix: string
