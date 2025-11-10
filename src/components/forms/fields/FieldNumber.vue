@@ -58,14 +58,16 @@ const props = defineProps({
 
 const emits = defineEmits(['update:modelValue'])
 
-function formatInputValue(inputValue: number) {
-  if (props.max && inputValue > props.max) {
-    return props.max
-  } else if (inputValue < props.min) {
-    return props.min
+function formatInputValue(inputValue: number | string) {
+  let valueReturned = Number(inputValue)
+
+  if (props.max && valueReturned > props.max) {
+    valueReturned = props.max
+  } else if (valueReturned < props.min) {
+    valueReturned = props.min
   }
 
-  return inputValue
+  return valueReturned
 }
 
 const modelValueTemp = computed({
@@ -82,6 +84,6 @@ watch(
   (val) => {
     modelValueTemp.value = val || 0
   },
-  { immediate: true },
+  { immediate: true }
 )
 </script>

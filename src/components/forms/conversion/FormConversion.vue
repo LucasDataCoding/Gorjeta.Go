@@ -1,11 +1,25 @@
 <template>
   <form class="space-y-8" @submit.prevent>
-    <PriceExpense v-model="formData.priceExpense" />
-    <TipValue v-model="formData.tipPercentage" />
+    <FieldNumber
+      v-model="tipCalculatorForm.fieldsParameters.expenseValue"
+      label="valor da conta"
+      input-name="valor-conta"
+    >
+      <template #prefix>
+        {{ tipCalculatorForm.fieldsParameters?.exchangeRate?.prefix }}
+      </template>
+
+      <template #sufix>
+        <ExchangeRate v-model="tipCalculatorForm.fieldsParameters.exchangeRate" />
+      </template>
+    </FieldNumber>
+
+    <TipValue v-model="tipCalculatorForm.fieldsParameters.tipPercentage" />
+
     <FieldQuantity
       label="quantos irão pagar"
       is-horizontal
-      v-model="formData.quantityPayers"
+      v-model="tipCalculatorForm.fieldsParameters.peoplePaying"
       :min="2"
       :max="16"
       input-name="numero-pessoas"
@@ -14,14 +28,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import PriceExpense from './fields/PriceExpense.vue'
 import TipValue from './fields/TipValue.vue'
 import FieldQuantity from '../fields/FieldQuantity.vue'
+import { useTipCalculatorForm } from '@/stores/tipCalculatorForm'
 
-const formData = ref({
-  tipPercentage: 0,
-  priceExpense: 0,
-  quantityPayers: 0,
-})
+import FieldNumber from '@/components/forms/fields/FieldNumber.vue'
+import ExchangeRate from './fields/ExchangeRate.vue'
+
+const tipCalculatorForm = useTipCalculatorForm()
 </script>

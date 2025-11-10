@@ -35,7 +35,11 @@ const emits = defineEmits(['update:model-value'])
 // AJUSTAR PORCENTAGEM QUE NAO FICA BARRADO EM 20
 // DEPOIS DO PRIMEIRO BARRAMENTO ACIMA DE 20
 
-const currentPercentageTemp = ref(10)
+const props = defineProps({
+  modelValue: Number,
+})
+
+const currentPercentageTemp = ref(props.modelValue)
 
 const currentPercentage = computed({
   get: () => currentPercentageTemp.value,
