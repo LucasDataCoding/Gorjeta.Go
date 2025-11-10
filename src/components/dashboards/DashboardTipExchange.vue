@@ -156,14 +156,25 @@ function valueFormatter(tick: number | Date) {
 }
 
 function handleCopyLink() {
-  const currentLocation = window.location.href
-  console.log(currentLocation)
+  const url = window.location.href
 
-  toast.success('Link copiado com sucesso!', {
-    description:
-      'O link para compartilhar esta conta já está na sua área de transferência. Basta colar (Ctrl + V ou toque em “colar”) onde quiser.',
-    duration: 6000,
-  })
+  // Usa a API moderna de clipboard (suportada na maioria dos navegadores)
+  navigator.clipboard
+    .writeText(url)
+    .then(() => {
+      toast.success('Link copiado com sucesso!', {
+        description:
+          'O link para compartilhar esta conta já está na sua área de transferência. Basta colar (Ctrl + V ou toque em “colar”) onde quiser.',
+        duration: 6000,
+      })
+    })
+    .catch(() => {
+      toast.error('Oh oh...', {
+        description:
+          'Ocorreu um erro ao tentar copiar a URL do seu navegador. Por favor, copie manualmente e envie aos seus amigos para que eles possam ver a conta.',
+        duration: 6000,
+      })
+    })
 }
 </script>
 
