@@ -28,7 +28,7 @@
       />
 
       <div
-        class="h-full px-5 text-white flex items-center justify-center uppercase bg-purple font-medium"
+        class="h-full text-white flex items-center justify-center uppercase bg-purple hover:bg-purple-700 transition font-medium"
       >
         <slot name="sufix" />
       </div>
@@ -82,6 +82,6 @@ watch(
   (val) => {
     modelValueTemp.value = val || 0
   },
-  { immediate: true }
+  { immediate: true },
 )
 </script>

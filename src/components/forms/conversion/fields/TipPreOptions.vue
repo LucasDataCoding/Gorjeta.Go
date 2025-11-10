@@ -5,9 +5,9 @@
         <button
           v-for="percentage in percentages"
           :key="percentage"
-          class="flex items-center justify-center transition-all rounded-sm chip-percentage cursor-pointer text-sm"
+          class="flex items-center justify-center transition-all rounded-sm chip-percentage cursor-pointer text-sm hover:brightness-[0.9]"
           :class="{
-            'is-current-percentage text-base': isCurrentPercentage(percentage),
+            'is-current-percentage text-base font-semibold': isCurrentPercentage(percentage),
           }"
           @click="updatePercentage(percentage)"
         >

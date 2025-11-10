@@ -5,7 +5,7 @@
     </template>
     <template #sufix>
       <DropdownMenu>
-        <DropdownMenuTrigger class="uppercase w-full">
+        <DropdownMenuTrigger class="uppercase w-full px-5">
           {{ currentExchange.sufix }}
         </DropdownMenuTrigger>
 
