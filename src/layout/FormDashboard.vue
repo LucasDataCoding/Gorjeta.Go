@@ -14,7 +14,7 @@ import CardContent from '@/components/CardContent.vue'
       <slot name="form" />
     </CardContent>
 
-    <CardContent class="col-span-7">
+    <CardContent class="col-span-7 px-5 lg:px-10">
       <slot name="dashboard" />
     </CardContent>
   </div>

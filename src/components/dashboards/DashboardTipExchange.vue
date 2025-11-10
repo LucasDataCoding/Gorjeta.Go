@@ -13,17 +13,43 @@
     Colocar botão de copiar
     -->
     <TabsContent value="individual">
-      <div class="grid grid-cols-12 gap-10 mt-5">
+      <div class="grid grid-cols-6 lg:grid-cols-12 gap-5 mt-5">
         <div class="col-span-3">
-          <CardContent is-theme-light size="xs" class="p-5"> a </CardContent>
+          <HeaderInfo>
+            <template #top> Valor a Pagar em USD </template>
+
+            <template #middle> $8,28 </template>
+
+            <template #bottom> $7,33 + 13% de Gorjeta </template>
+          </HeaderInfo>
         </div>
 
         <div class="col-span-3">
-          <CardContent is-theme-light size="xs" class="p-5"> b </CardContent>
+          <HeaderInfo class="h-full">
+            <template #top> Valor a Pagar em BRL</template>
+
+            <template #middle> R$43,03 </template>
+
+            <template #bottom> $1 USD = 5,358 BRL </template>
+          </HeaderInfo>
         </div>
 
         <div class="col-span-6">
-          <CardContent is-theme-light size="xs" class="p-5"> c </CardContent>
+          <HeaderInfo>
+            <template #top> Gorjeta em usd </template>
+
+            <template #middle> $0,95 </template>
+
+            <template #bottom>
+              <div class="flex items-center w-full space-x-2">
+                <div class="text-xs text-ice">10%</div>
+
+                <Progress :model-value="33" />
+
+                <div class="text-xs text-ice">20%</div>
+              </div>
+            </template>
+          </HeaderInfo>
         </div>
       </div>
     </TabsContent>
@@ -35,4 +61,6 @@
 <script lang="ts" setup>
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import CardContent from '../CardContent.vue'
+import HeaderInfo from './cells/HeaderInfo.vue'
+import Progress from '../ui/progress/Progress.vue'
 </script>
