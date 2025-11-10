@@ -7,6 +7,7 @@
       is-horizontal
       v-model="formData.quantityPayers"
       :min="2"
+      :max="16"
       input-name="numero-pessoas"
     />
   </form>

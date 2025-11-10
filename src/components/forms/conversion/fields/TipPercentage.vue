@@ -8,7 +8,9 @@
     :max="20"
   >
     <template #prefix></template>
-    <template #sufix>%</template>
+    <template #sufix>
+      <span class="px-5 pointer-events-none">%</span>
+    </template>
   </FieldNumber>
 </template>
 

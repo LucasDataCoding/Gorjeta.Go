@@ -13,7 +13,7 @@
 
       <div class="col-span-5">
         <img
-          src="../../../../../public/doodle_cacafe.png"
+          src="/public/doodle_cacafe.png"
           width="149"
           height="199"
           alt="personagem tomando café"
