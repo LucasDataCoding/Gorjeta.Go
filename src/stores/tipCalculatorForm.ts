@@ -38,6 +38,7 @@ export const useTipCalculatorForm = defineStore('tipCalculator', () => {
 
   // todo
   // separar em composables
+  // integrar com api de cotação euro / dolar => real
 
   // Calculation Methods
   function calculatePercentageTipCost(cost: number) {
