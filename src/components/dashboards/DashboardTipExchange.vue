@@ -21,11 +21,16 @@
     <div class="grid grid-cols-6 lg:grid-cols-12 gap-5 mt-5">
       <div class="col-span-3">
         <HeaderInfo>
-          <template #top> Valor a Pagar em USD </template>
+          <template #top> Valor a Pagar em {{ exchangeSufix }} </template>
 
-          <template #middle> $8,28 </template>
+          <template #middle
+            >{{ exchangePrefix }}{{ tipCalculatorForm.calculations[accountType].expenseTotal }}
+          </template>
 
-          <template #bottom> $7,33 + 13% de Gorjeta </template>
+          <template #bottom
+            >{{ exchangePrefix }}{{ tipCalculatorForm.calculations[accountType].expenseValue }} +
+            {{ tipCalculatorForm.fieldsParameters.tipPercentage }}% de Gorjeta
+          </template>
         </HeaderInfo>
       </div>
 
@@ -35,23 +40,28 @@
 
           <template #middle> R$43,03 </template>
 
-          <template #bottom> $1 USD = 5,358 BRL </template>
+          <template #bottom>{{ exchangePrefix }}1 {{ exchangeSufix }} = 5,358 BRL </template>
         </HeaderInfo>
       </div>
 
       <div class="col-span-6">
         <HeaderInfo>
-          <template #top> Gorjeta em usd </template>
+          <template #top>
+            Gorjeta em {{ tipCalculatorForm.fieldsParameters.exchangeRate?.sufix }}
+          </template>
 
-          <template #middle> $0,95 </template>
+          <template #middle
+            >{{ exchangePrefix
+            }}{{ tipCalculatorForm.calculations[accountType].expenseTip }}</template
+          >
 
           <template #bottom>
             <div class="flex items-center w-full space-x-2">
-              <div class="text-xs text-ice">10%</div>
+              <div class="text-xs text-ice">{{ minTipPercentage }}%</div>
 
-              <Progress :model-value="33" />
+              <Progress :model-value="tipPercentage" />
 
-              <div class="text-xs text-ice">20%</div>
+              <div class="text-xs text-ice">{{ maxTipPercentage }}%</div>
             </div>
           </template>
         </HeaderInfo>
@@ -68,20 +78,30 @@
           >
             <li>
               Conta do grupo
-              <span class="font-bold text-regular text-blue">($73,23) + $9,52</span>
-              (13% de gorjeta) =
+              <span class="font-bold text-regular text-blue"
+                >({{ exchangePrefix }}{{ tipCalculatorForm.fieldsParameters.expenseValue }}) +{{
+                  tipCalculatorForm.fieldsParameters.exchangeRate?.prefix
+                }}{{ tipCalculatorForm.calculations.group.expenseTip }}</span
+              >
+              ({{ tipCalculatorForm.fieldsParameters.tipPercentage }}% de gorjeta) =
             </li>
 
             <li>
               Conta do grupo com gorjeta
-              <span class="font-bold text-regular text-blue">($82,73) dividido por 10</span>
+              <span class="font-bold text-regular text-blue"
+                >({{ exchangePrefix }}{{ tipCalculatorForm.calculations.group.expenseTotal }})
+                dividido por {{ tipCalculatorForm.fieldsParameters.peoplePaying }}</span
+              >
               pessoas =
             </li>
 
             <li>
               Conta individual final
 
-              <span class="font-bold text-regular text-blue">($8,28)</span>
+              <span class="font-bold text-regular text-blue"
+                >({{ exchangePrefix
+                }}{{ tipCalculatorForm.calculations.individual.expenseTotal }})</span
+              >
 
               <TooltipProvider>
                 <Tooltip>
@@ -135,24 +155,38 @@ import MainSection from './cells/MainSection.vue'
 import { DonutChart } from '@/components/ui/chart-donut'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { toast } from 'vue-sonner'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useTipCalculatorForm } from '@/stores/tipCalculatorForm'
+import { maxTipPercentage, minTipPercentage } from '@/constants/tipValues'
+
+const tipCalculatorForm = useTipCalculatorForm()
+
+const exchangePrefix = computed(() => tipCalculatorForm.fieldsParameters.exchangeRate?.prefix)
+const exchangeSufix = computed(() => tipCalculatorForm.fieldsParameters.exchangeRate?.sufix)
+const tipPercentage = computed(
+  () =>
+    ((tipCalculatorForm.fieldsParameters.tipPercentage - minTipPercentage) /
+      (maxTipPercentage - minTipPercentage)) *
+    100
+)
 
 const tab = ref('0')
 
-const data = [
+const accountType = computed(() => (+tab.value ? 'group' : 'individual'))
+
+const data = computed(() => [
   {
     name: 'Conta',
-    total: 7.33,
+    total: tipCalculatorForm.calculations[accountType.value].expenseValue,
   },
   {
     name: 'Gorjeta',
-    total: 0.95,
+    total: tipCalculatorForm.calculations[accountType.value].expenseTip,
   },
-]
+])
 
 function valueFormatter(tick: number | Date) {
-  return typeof tick === 'number' ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}` : ''
-  // return typeof tick === 'number' ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}` : ''
+  return `${exchangePrefix.value} ${tick}`
 }
 
 function handleCopyLink() {
@@ -177,11 +211,3 @@ function handleCopyLink() {
     })
 }
 </script>
-
-<style lang="scss" scoped>
-// TODO
-// DEIXAR MAIS GORDO ESSE CHART, TA MUITO MAGRO
-:deep(.tremor-DonutChart path) {
-  stroke-width: 24px !important;
-}
-</style>

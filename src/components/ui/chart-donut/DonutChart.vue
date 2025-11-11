@@ -7,6 +7,7 @@ import { useMounted } from '@vueuse/core'
 import { computed, ref } from 'vue'
 import { cn } from '@/lib/utils'
 import { ChartSingleTooltip, defaultColors } from '@/components/ui/chart'
+import { roundMoneyUp } from '@/helpers/money'
 
 const props = withDefaults(
   defineProps<
@@ -97,7 +98,7 @@ const totalValue = computed(() =>
         :color="colors"
         :arc-width="type === 'donut' ? 35 : 0"
         :show-background="false"
-        :central-label="type === 'donut' ? valueFormatter(totalValue) : ''"
+        :central-label="type === 'donut' ? valueFormatter(roundMoneyUp(totalValue)) : ''"
         :events="{
           [Donut.selectors.segment]: {
             click: (d: Data, ev: PointerEvent, i: number, elements: HTMLElement[]) => {

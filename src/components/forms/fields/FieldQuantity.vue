@@ -69,12 +69,18 @@ function formatInputValue(inputValue: number) {
   return inputValue
 }
 
+const timeoutForrmat = ref()
+
 const modelValueTemp = computed({
   get: () => formatInputValue(props.modelValue || props.min),
   set: (inputValue: number) => {
     const inputFormatted = formatInputValue(inputValue)
 
-    emits('update:modelValue', inputFormatted)
+    if (timeoutForrmat.value) {
+      clearTimeout(timeoutForrmat.value)
+    }
+
+    timeoutForrmat.value = setTimeout(() => emits('update:modelValue', inputFormatted), 1000)
   },
 })
 

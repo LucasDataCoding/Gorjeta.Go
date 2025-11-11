@@ -3,8 +3,9 @@ import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { coins } from '@/constants/exchangeRate'
 import type { IFormCalculatorTip } from '@/types/forms'
+import { roundMoneyUp } from '@/helpers/money'
 
-export const useTipCalculatorForm = defineStore('counter', () => {
+export const useTipCalculatorForm = defineStore('tipCalculator', () => {
   const route = useRoute()
 
   const queryRoute = route.query
@@ -35,7 +36,46 @@ export const useTipCalculatorForm = defineStore('counter', () => {
     { deep: true },
   )
 
+  // todo
+  // separar em composables
+
+  // Calculation Methods
+  function calculatePercentageTipCost(cost: number) {
+    return roundMoneyUp(cost * fieldsParameters.value.tipPercentage) / 100
+  }
+
+  const calculations = computed(() => {
+    // Calculating Individual
+    const expenseTipGroup = calculatePercentageTipCost(fieldsParameters.value.expenseValue)
+    const groupCalculations = {
+      expenseValue: fieldsParameters.value.expenseValue,
+      expenseTip: expenseTipGroup,
+      expenseTotal: roundMoneyUp(fieldsParameters.value.expenseValue + expenseTipGroup),
+    }
+
+    // Calculating Group
+    const expenseValue = roundMoneyUp(
+      groupCalculations.expenseTip / fieldsParameters.value.peoplePaying,
+    )
+
+    const expenseTip = calculatePercentageTipCost(expenseValue)
+
+    const expenseTotal = roundMoneyUp(expenseValue + expenseTip)
+
+    const individualCalculations = {
+      expenseValue,
+      expenseTip,
+      expenseTotal,
+    }
+
+    return {
+      group: groupCalculations,
+      individual: individualCalculations,
+    }
+  })
+
   return {
     fieldsParameters,
+    calculations,
   }
 })
