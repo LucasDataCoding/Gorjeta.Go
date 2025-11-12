@@ -2,23 +2,68 @@ import type { ICoinLabels } from '@/types/fields'
 import { computed, ref, watch, type Ref } from 'vue'
 import axios from 'axios'
 import { coins, coinsValues } from '@/constants/exchangeRate'
+import { useRoute } from 'vue-router'
+import type { IFormCalculatorTip } from '@/types/forms'
+import { roundMoneyUp } from '@/helpers/money'
+import type { IExchangeRateResponse, IExchangeRateApiItemResponse } from '@/types/api/exchange'
 
-export interface IExchangeRateApiItemResponse {
-  ask: '6.13497'
-  bid: '6.11995'
-  code: 'EUR'
-  codein: 'BRL'
-  create_date: '2025-11-11 09:26:03'
-  high: '6.14628'
-  low: '6.10501'
-  name: 'Euro/Real Brasileiro'
-  pctChange: '0.122387'
-  timestamp: '1762863963'
-  varBid: '0.007481'
+export function useParseQueryAtributtesForm() {
+  const route = useRoute()
+  const formAtributes = route.query
+
+  const emptyStartFieldsParameters: IFormCalculatorTip = {
+    expenseValue: 0,
+    tipPercentage: 10,
+    peoplePaying: 2,
+    exchangeRate: coins[0]!.value,
+  }
+
+  const fields = ref({
+    expenseValue: Number(formAtributes?.expenseValue) || emptyStartFieldsParameters.expenseValue,
+    tipPercentage: Number(formAtributes?.tipPercentage) || emptyStartFieldsParameters.tipPercentage,
+    peoplePaying: Number(formAtributes?.peoplePaying) || emptyStartFieldsParameters.peoplePaying,
+    exchangeRate: formAtributes?.exchangeRate || emptyStartFieldsParameters.exchangeRate,
+  } as IFormCalculatorTip)
+
+  return fields
 }
 
-export interface IExchangeRateResponse {
-  [key: string]: IExchangeRateApiItemResponse
+export function useCalculateTipInfos(fieldsParameters: any) {
+  function calculatePercentageTipCost(cost: number) {
+    return roundMoneyUp(cost * fieldsParameters.value.tipPercentage) / 100
+  }
+
+  const calcs = computed(() => {
+    // Calculating Individual
+    const expenseTipGroup = calculatePercentageTipCost(fieldsParameters.value.expenseValue)
+    const groupCalculations = {
+      expenseValue: fieldsParameters.value.expenseValue,
+      expenseTip: expenseTipGroup,
+      expenseTotal: roundMoneyUp(fieldsParameters.value.expenseValue + expenseTipGroup),
+    }
+
+    // Calculating Group
+    const expenseValue = roundMoneyUp(
+      groupCalculations.expenseValue / fieldsParameters.value.peoplePaying,
+    )
+
+    const expenseTip = calculatePercentageTipCost(expenseValue)
+
+    const expenseTotal = roundMoneyUp(expenseValue + expenseTip)
+
+    const individualCalculations = {
+      expenseValue,
+      expenseTip,
+      expenseTotal,
+    }
+
+    return {
+      group: groupCalculations,
+      individual: individualCalculations,
+    }
+  })
+
+  return calcs
 }
 
 async function loadExchangeRates(desiredExchanges: string[]) {

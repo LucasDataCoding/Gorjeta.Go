@@ -169,9 +169,7 @@ const tab = ref('0')
 const accountType = computed(() => (+tab.value ? 'group' : 'individual'))
 
 const tipCalculatorForm = useTipCalculatorForm()
-
 const expenseTotal = computed(() => tipCalculatorForm.calculations[accountType.value].expenseTotal)
-
 const currentExchanteRate = computed(() => tipCalculatorForm.fieldsParameters.exchangeRate)
 const exchangePrefix = computed(() => currentExchanteRate.value?.prefix)
 const exchangeSufix = computed(() => currentExchanteRate.value?.sufix)
