@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="flex flex-col lg:flex-row items-center bg-gray py-5 lg:py-0 space-y-4 lg:space-y-0 lg:space-x-20 w-full lg:h-[90px]"
+    class="flex flex-col lg:flex-row items-center py-5 lg:py-0 space-y-4 lg:space-y-0 lg:space-x-20 w-full lg:h-[90px]"
   >
     <MainLogo />
 

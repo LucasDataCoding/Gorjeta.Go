@@ -7,7 +7,7 @@ import { useMounted } from '@vueuse/core'
 import { computed, ref } from 'vue'
 import { cn } from '@/lib/utils'
 import { ChartSingleTooltip, defaultColors } from '@/components/ui/chart'
-import { roundMoneyUp } from '@/helpers/money'
+import { formatMoneyVisual } from '@/helpers/money'
 
 const props = withDefaults(
   defineProps<
@@ -45,7 +45,7 @@ const props = withDefaults(
     filterOpacity: 0.2,
     showTooltip: true,
     showLegend: true,
-  }
+  },
 )
 
 type KeyOfT = Extract<keyof T, string>
@@ -60,20 +60,20 @@ const activeSegmentKey = ref<string>()
 const colors = computed(() =>
   props.colors?.length
     ? props.colors
-    : defaultColors(props.data.filter((d) => d[props.category]).filter(Boolean).length)
+    : defaultColors(props.data.filter((d) => d[props.category]).filter(Boolean).length),
 )
 const legendItems = computed(() =>
   props.data.map((item, i) => ({
     name: item[props.index],
     color: colors.value[i],
     inactive: false,
-  }))
+  })),
 )
 
 const totalValue = computed(() =>
   props.data.reduce((prev, curr) => {
     return prev + curr[props.category]
-  }, 0)
+  }, 0),
 )
 </script>
 
@@ -98,17 +98,16 @@ const totalValue = computed(() =>
         :color="colors"
         :arc-width="type === 'donut' ? 35 : 0"
         :show-background="false"
-        :central-label="type === 'donut' ? valueFormatter(roundMoneyUp(totalValue)) : ''"
+        :central-label="type === 'donut' ? valueFormatter(formatMoneyVisual(totalValue)) : ''"
         :events="{
           [Donut.selectors.segment]: {
             click: (d: Data, ev: PointerEvent, i: number, elements: HTMLElement[]) => {
               if (d?.data?.[index] === activeSegmentKey) {
                 activeSegmentKey = undefined
-                elements.forEach(el => el.style.opacity = '1')
-              }
-              else {
+                elements.forEach((el) => (el.style.opacity = '1'))
+              } else {
                 activeSegmentKey = d?.data?.[index]
-                elements.forEach(el => el.style.opacity = `${filterOpacity}`)
+                elements.forEach((el) => (el.style.opacity = `${filterOpacity}`))
                 elements[i].style.opacity = '1'
               }
             },

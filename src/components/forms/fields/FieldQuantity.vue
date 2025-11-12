@@ -18,7 +18,7 @@
         class="text-lg flex items-center overflow-hidden outline-1 outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-purple transition"
       >
         <input
-          v-model="modelValueTemp"
+          v-model.lazy="modelValueTemp"
           :name="inputName"
           :id="inputName"
           pattern="[0-9]*$"
@@ -39,6 +39,7 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue'
+import FieldNumber from './FieldNumber.vue'
 
 const props = defineProps({
   label: { type: String, required: true },
@@ -69,18 +70,14 @@ function formatInputValue(inputValue: number) {
   return inputValue
 }
 
-const timeoutForrmat = ref()
+// const timeoutForrmat = ref()
 
 const modelValueTemp = computed({
   get: () => formatInputValue(props.modelValue || props.min),
   set: (inputValue: number) => {
     const inputFormatted = formatInputValue(inputValue)
 
-    if (timeoutForrmat.value) {
-      clearTimeout(timeoutForrmat.value)
-    }
-
-    timeoutForrmat.value = setTimeout(() => emits('update:modelValue', inputFormatted), 1000)
+    emits('update:modelValue', inputFormatted)
   },
 })
 

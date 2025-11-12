@@ -16,8 +16,9 @@
 
     <TipValue v-model="tipCalculatorForm.fieldsParameters.tipPercentage" />
 
-    <FieldQuantity
+    <FieldNumber
       label="quantos irão pagar"
+      is-quantity
       is-horizontal
       v-model="tipCalculatorForm.fieldsParameters.peoplePaying"
       :min="2"

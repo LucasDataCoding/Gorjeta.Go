@@ -4,31 +4,19 @@
       <TabsTrigger value="0" class="text-ice"> conta individual </TabsTrigger>
       <TabsTrigger value="1" class="text-ice"> conta do grupo </TabsTrigger>
     </TabsList>
-
-    <!-- todo
-    1. componentizar mini cards do dashboard
-    2. criar explicação do calculo
-    3. criar chart de donut conta individual
-    4. componetizar seção com explicação do calculo com chart,
-    Colocar botão de copiar
-    -->
-    <!-- <TabsContent value="0" class="space-y-8"> </TabsContent>
-
-    <TabsContent value="1"> Dashboard de conta do grupo aqui </TabsContent> -->
   </Tabs>
 
   <div class="space-y-8">
     <div class="grid grid-cols-6 lg:grid-cols-12 gap-5 mt-5">
       <div class="col-span-3">
-        <HeaderInfo>
+        <HeaderInfo class="h-full">
           <template #top> Valor a Pagar em {{ exchangeSufix }} </template>
 
-          <template #middle
-            >{{ exchangePrefix }}{{ tipCalculatorForm.calculations[accountType].expenseTotal }}
-          </template>
+          <template #middle>{{ exchangePrefix }}{{ formatMoneyVisual(expenseTotal) }} </template>
 
           <template #bottom
-            >{{ exchangePrefix }}{{ tipCalculatorForm.calculations[accountType].expenseValue }} +
+            >{{ exchangePrefix
+            }}{{ formatMoneyVisual(tipCalculatorForm.calculations[accountType].expenseValue) }} +
             {{ tipCalculatorForm.fieldsParameters.tipPercentage }}% de Gorjeta
           </template>
         </HeaderInfo>
@@ -38,21 +26,30 @@
         <HeaderInfo class="h-full">
           <template #top> Valor a Pagar em BRL</template>
 
-          <template #middle> R$43,03 </template>
+          <template #middle>
+            R${{ formatMoneyVisual(currentExchangeRateValue.expenseInBrl.value) }}
+          </template>
 
-          <template #bottom>{{ exchangePrefix }}1 {{ exchangeSufix }} = 5,358 BRL </template>
+          <template #bottom
+            >{{ exchangePrefix }}1 {{ exchangeSufix.toUpperCase() }} =
+            {{ formatMoneyVisual(currentExchangeRateValue.currentExchangeRateValue.value || 0) }}
+            BRL
+          </template>
         </HeaderInfo>
       </div>
 
       <div class="col-span-6">
-        <HeaderInfo>
+        <HeaderInfo class="h-full">
           <template #top>
-            Gorjeta em {{ tipCalculatorForm.fieldsParameters.exchangeRate?.sufix }}
+            Gorjeta em
+            {{ tipCalculatorForm.fieldsParameters.exchangeRate?.sufix }}
           </template>
 
           <template #middle
             >{{ exchangePrefix
-            }}{{ tipCalculatorForm.calculations[accountType].expenseTip }}</template
+            }}{{
+              formatMoneyVisual(tipCalculatorForm.calculations[accountType].expenseTip)
+            }}</template
           >
 
           <template #bottom>
@@ -79,17 +76,22 @@
             <li>
               Conta do grupo
               <span class="font-bold text-regular text-blue"
-                >({{ exchangePrefix }}{{ tipCalculatorForm.fieldsParameters.expenseValue }}) +{{
-                  tipCalculatorForm.fieldsParameters.exchangeRate?.prefix
-                }}{{ tipCalculatorForm.calculations.group.expenseTip }}</span
+                >{{ exchangePrefix
+                }}{{ formatMoneyVisual(tipCalculatorForm.fieldsParameters.expenseValue) }} +
+                {{ tipCalculatorForm.fieldsParameters.exchangeRate?.prefix
+                }}{{ formatMoneyVisual(tipCalculatorForm.calculations.group.expenseTip) }}</span
               >
-              ({{ tipCalculatorForm.fieldsParameters.tipPercentage }}% de gorjeta) =
+              ({{ formatMoneyVisual(tipCalculatorForm.fieldsParameters.tipPercentage) }}% de
+              gorjeta) =
             </li>
 
             <li>
               Conta do grupo com gorjeta
               <span class="font-bold text-regular text-blue"
-                >({{ exchangePrefix }}{{ tipCalculatorForm.calculations.group.expenseTotal }})
+                >{{ exchangePrefix
+                }}{{
+                  formatMoneyVisual(tipCalculatorForm.calculations.group.expenseTotal)
+                }}
                 dividido por {{ tipCalculatorForm.fieldsParameters.peoplePaying }}</span
               >
               pessoas =
@@ -99,24 +101,25 @@
               Conta individual final
 
               <span class="font-bold text-regular text-blue"
-                >({{ exchangePrefix
-                }}{{ tipCalculatorForm.calculations.individual.expenseTotal }})</span
+                >{{ exchangePrefix
+                }}{{
+                  formatMoneyVisual(tipCalculatorForm.calculations.individual.expenseTotal)
+                }}</span
               >
 
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <span
-                      class="ms-3 border-2 border-solid rounded-full w-[25px] h-[25px] inline-flex items-center justify-center"
-                    >
-                      <FontAwesomeIcon class="text-xs" icon="fa-solid fa-info" />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Valor arrendodado por 2 casas decimais (sempre para cima)</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <TooltipBasic>
+                <template #trigger>
+                  <span
+                    class="ms-3 border-2 border-solid rounded-full w-[25px] h-[25px] inline-flex items-center justify-center"
+                  >
+                    <FontAwesomeIcon class="text-xs" icon="fa-solid fa-info" />
+                  </span>
+                </template>
+
+                <template #content>
+                  <p>Valor arrendodado por 2 casas decimais (sempre para cima)</p>
+                </template>
+              </TooltipBasic>
             </li>
           </ol>
 
@@ -146,33 +149,38 @@
 </template>
 
 <script lang="ts" setup>
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import CardContent from '../CardContent.vue'
-import HeaderInfo from './cells/HeaderInfo.vue'
+import HeaderInfo from '../ui/card/HeaderInfo.vue'
 import Progress from '../ui/progress/Progress.vue'
-import MainSection from './cells/MainSection.vue'
+import MainSection from '../../layout/MainSection.vue'
 import { DonutChart } from '@/components/ui/chart-donut'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { toast } from 'vue-sonner'
 import { computed, ref } from 'vue'
 import { useTipCalculatorForm } from '@/stores/tipCalculatorForm'
 import { maxTipPercentage, minTipPercentage } from '@/constants/tipValues'
+import { useCurrentExchangeRateValues } from '@/composables/exchangeRate'
+import { formatMoneyVisual } from '@/helpers/money'
+import TooltipBasic from '../ui/tooltip/TooltipBasic.vue'
+
+const tab = ref('0')
+
+const accountType = computed(() => (+tab.value ? 'group' : 'individual'))
 
 const tipCalculatorForm = useTipCalculatorForm()
 
-const exchangePrefix = computed(() => tipCalculatorForm.fieldsParameters.exchangeRate?.prefix)
-const exchangeSufix = computed(() => tipCalculatorForm.fieldsParameters.exchangeRate?.sufix)
+const expenseTotal = computed(() => tipCalculatorForm.calculations[accountType.value].expenseTotal)
+
+const currentExchanteRate = computed(() => tipCalculatorForm.fieldsParameters.exchangeRate)
+const exchangePrefix = computed(() => currentExchanteRate.value?.prefix)
+const exchangeSufix = computed(() => currentExchanteRate.value?.sufix)
 const tipPercentage = computed(
   () =>
     ((tipCalculatorForm.fieldsParameters.tipPercentage - minTipPercentage) /
       (maxTipPercentage - minTipPercentage)) *
     100
 )
-
-const tab = ref('0')
-
-const accountType = computed(() => (+tab.value ? 'group' : 'individual'))
 
 const data = computed(() => [
   {
@@ -189,10 +197,11 @@ function valueFormatter(tick: number | Date) {
   return `${exchangePrefix.value} ${tick}`
 }
 
+const currentExchangeRateValue = useCurrentExchangeRateValues(currentExchanteRate, expenseTotal)
+
 function handleCopyLink() {
   const url = window.location.href
 
-  // Usa a API moderna de clipboard (suportada na maioria dos navegadores)
   navigator.clipboard
     .writeText(url)
     .then(() => {

@@ -40,7 +40,7 @@ const props = defineProps({
 
 const currentExchangeValue: Ref<string> = ref(props.modelValue || '')
 const currentExchange: ComputedRef<ICoinLabels> = computed(
-  () => coins.find((c) => c.value === currentExchangeValue.value) || (coins[0] as ICoinLabels)
+  () => coins.find((c) => c.value === currentExchangeValue.value) || (coins[0] as ICoinLabels),
 )
 
 const emits = defineEmits(['update:modelValue'])
@@ -49,6 +49,6 @@ watch(
   () => {
     emits('update:modelValue', currentExchange.value)
   },
-  { immediate: true }
+  { immediate: true },
 )
 </script>
