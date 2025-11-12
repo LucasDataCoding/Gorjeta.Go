@@ -31,7 +31,6 @@
 
 <script lang="ts" setup>
 import TipValue from './fields/TipValue.vue'
-import FieldQuantity from '@/components/fields/FieldQuantity.vue'
 import { useTipCalculatorForm } from '../stores/tipCalculatorForm'
 
 import FieldNumber from '@/components/fields/FieldNumber.vue'
