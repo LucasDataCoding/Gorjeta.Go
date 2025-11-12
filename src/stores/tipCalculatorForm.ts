@@ -1,14 +1,13 @@
-import { ref, computed, watch, type Ref } from 'vue'
+import { ref, computed, watch, type Ref, type ComputedRef } from 'vue'
 import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { coins } from '@/constants/exchangeRate'
-import type { IFormCalculatorTip } from '@/types/forms'
+import type { IFormCalculatorTip, IFormCalculatorTipFromQuery } from '@/types/forms'
 import { roundMoneyUp } from '@/helpers/money'
 
-export const useTipCalculatorForm = defineStore('tipCalculator', () => {
+export function useParseQueryAtributtesForm() {
   const route = useRoute()
-
-  const queryRoute = route.query
+  const formAtributes = route.query
 
   const emptyStartFieldsParameters: IFormCalculatorTip = {
     expenseValue: 0,
@@ -17,36 +16,22 @@ export const useTipCalculatorForm = defineStore('tipCalculator', () => {
     exchangeRate: coins[0]!.value,
   }
 
-  const fieldsParameters: Ref<IFormCalculatorTip> = ref({
-    ...emptyStartFieldsParameters,
-    ...queryRoute,
-  })
+  const fields = ref({
+    expenseValue: Number(formAtributes?.expenseValue) || emptyStartFieldsParameters.expenseValue,
+    tipPercentage: Number(formAtributes?.tipPercentage) || emptyStartFieldsParameters.tipPercentage,
+    peoplePaying: Number(formAtributes?.peoplePaying) || emptyStartFieldsParameters.peoplePaying,
+    exchangeRate: formAtributes?.exchangeRate || emptyStartFieldsParameters.exchangeRate,
+  } as IFormCalculatorTip)
 
-  const router = useRouter()
+  return fields
+}
 
-  watch(
-    fieldsParameters,
-    (val) =>
-      router.push({
-        query: {
-          ...fieldsParameters.value,
-          exchangeRate: fieldsParameters.value.exchangeRate?.value,
-        },
-      }),
-    { deep: true },
-  )
-
-  // todo
-  // separar em composables
-  // integrar com api de cotação euro / dolar => real
-  // remover timeout quando clica no + e - do quantity field
-
-  // Calculation Methods
+export function useCalculateTipInfos(fieldsParameters: any) {
   function calculatePercentageTipCost(cost: number) {
     return roundMoneyUp(cost * fieldsParameters.value.tipPercentage) / 100
   }
 
-  const calculations = computed(() => {
+  const calcs = computed(() => {
     // Calculating Individual
     const expenseTipGroup = calculatePercentageTipCost(fieldsParameters.value.expenseValue)
     const groupCalculations = {
@@ -57,7 +42,7 @@ export const useTipCalculatorForm = defineStore('tipCalculator', () => {
 
     // Calculating Group
     const expenseValue = roundMoneyUp(
-      groupCalculations.expenseTip / fieldsParameters.value.peoplePaying,
+      groupCalculations.expenseValue / fieldsParameters.value.peoplePaying,
     )
 
     const expenseTip = calculatePercentageTipCost(expenseValue)
@@ -75,6 +60,30 @@ export const useTipCalculatorForm = defineStore('tipCalculator', () => {
       individual: individualCalculations,
     }
   })
+
+  return calcs
+}
+
+export const useTipCalculatorForm = defineStore('tipCalculator', () => {
+  const fieldsParameters: Ref<IFormCalculatorTip> = useParseQueryAtributtesForm()
+  const calculations = useCalculateTipInfos(fieldsParameters)
+
+  const router = useRouter()
+
+  // Watch to check if values of form changes,
+  // if so, push query params to keep filters
+  // so the user can share the account
+  watch(
+    fieldsParameters,
+    (val) =>
+      router.push({
+        query: {
+          ...fieldsParameters.value,
+          exchangeRate: fieldsParameters.value.exchangeRate?.value,
+        },
+      }),
+    { deep: true },
+  )
 
   return {
     fieldsParameters,
