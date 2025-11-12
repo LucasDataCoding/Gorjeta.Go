@@ -11,4 +11,6 @@ export const coins: ICoinLabels[] = [
     sufix: 'eur',
     value: 'eur',
   },
-]
+].map((coin) => ({ ...coin, value: coin.value.toUpperCase() }))
+
+export const coinsValues = coins.map((c) => c.value)

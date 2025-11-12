@@ -1,18 +1,24 @@
 <template>
   <div class="min-h-screen space-y-10 flex flex-col">
-    <TopBar class="px-25" />
+    <ContainerSection class="bg-gray">
+      <TopBar />
+    </ContainerSection>
 
-    <FormDashboard class="grow mx-5 lg:mx-25">
-      <template #form>
-        <FormConversion />
-      </template>
+    <ContainerSection>
+      <FormDashboard>
+        <template #form>
+          <FormConversion />
+        </template>
 
-      <template #dashboard>
-        <DashboardTipExchange />
-      </template>
-    </FormDashboard>
+        <template #dashboard>
+          <DashboardTipExchange />
+        </template>
+      </FormDashboard>
+    </ContainerSection>
 
-    <FooterCopyright class="px-25" />
+    <ContainerSection class="bg-purple">
+      <FooterCopyright />
+    </ContainerSection>
   </div>
 
   <main></main>
@@ -24,4 +30,5 @@ import FooterCopyright from '@/components/FooterCopyright.vue'
 import FormDashboard from '@/layout/FormDashboard.vue'
 import FormConversion from '@/components/forms/conversion/FormConversion.vue'
 import DashboardTipExchange from '@/components/dashboards/DashboardTipExchange.vue'
+import ContainerSection from '@/layout/ContainerSection.vue'
 </script>
