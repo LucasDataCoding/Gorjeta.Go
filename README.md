@@ -1,70 +1,95 @@
-# .
+---
 
-This template should help get you started developing with Vue 3 in Vite.
+```markdown
+# 💸 Gorjeta.Go
 
-## Recommended IDE Setup
+**Gorjeta.Go** é uma aplicação web desenvolvida com **Vue 3 + TypeScript** para cálculo inteligente e visual de gorjetas.  
+Totalmente reativa, responsiva e com suporte à conversão de moedas em tempo real (USD, EUR → BRL), a interface oferece uma experiência fluida tanto em **desktop quanto mobile**.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+👉 Acesse em: [https://gorjeta-go.vercel.app/](https://gorjeta-go.vercel.app/)
 
-## Recommended Browser Setup
+---
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## ✨ Funcionalidades principais
 
-## Type Support for `.vue` Imports in TS
+- 🧮 **Cálculo automático e reativo**: informe o valor da conta, o percentual da gorjeta e o número de pessoas — os resultados são exibidos instantaneamente, sem botão de cálculo.
+- 💱 **Conversão de moedas**: suporte a **USD** e **EUR**, com conversão dinâmica para **BRL** via [AwesomeAPI](https://docs.awesomeapi.com.br/api-de-moedas).
+- 📱 **Layout responsivo e moderno**: pensado para oferecer uma navegação agradável em mobile e desktop.
+- 🎨 **UI refinada com ShadCN + TailwindCSS**: componentes reutilizáveis e acessíveis, mantendo consistência visual e performance.
+- ⚙️ **Arquitetura baseada em features**: separação clara entre lógica, componentes, serviços e utilitários, facilitando manutenção e escalabilidade.
+- 🧪 **Testes unitários com Vitest**: cobertura dos principais cálculos de gorjeta, arredondamentos e integração com taxas de câmbio.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+---
 
-## Customize configuration
+## 🧩 Stack técnica
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+| Categoria                   | Tecnologia                                    |
+| --------------------------- | --------------------------------------------- |
+| **Framework**               | [Vue 3](https://vuejs.org/) (Composition API) |
+| **Linguagem**               | TypeScript                                    |
+| **UI/Estilo**               | TailwindCSS + ShadCN + Lucide Icons           |
+| **Reatividade utilitária**  | VueUse                                        |
+| **HTTP Client**             | Axios                                         |
+| **Gerenciamento de estado** | Pinia                                         |
+| **Testes unitários**        | Vitest                                        |
+| **Build Tool**              | Vite                                          |
+| **Deploy**                  | [Vercel](https://vercel.com/)                 |
 
-## Project Setup
+---
 
-```sh
+## 🧮 Organização do projeto
+
+A aplicação segue uma estrutura modular baseada em **features**, garantindo clareza e fácil expansão:
+
+```
+
+src/
+├─ app/                  # Configurações globais, rotas e layout
+├─ components/           # Componentes genéricos (base / ui)
+├─ features/
+│   └─ tip-calculator/   # Feature principal: cálculo de gorjetas
+│       ├─ components/   # TipForm, TipDashboard e fields
+│       ├─ composables/  # useTipCalculation, useExchangeRate
+│       ├─ services/     # Requisições HTTP (AwesomeAPI)
+│       └─ utils/        # Helpers de formatação e arredondamento
+└─ assets/               # Estilos globais e ícones
+
+```
+
+---
+
+## 🧠 Destaques técnicos
+
+- Utilização da **Composition API** para máxima reatividade e clareza.
+- Funções puras e testáveis para cálculos financeiros (`roundMoneyUp`, `useCalculateTipInfos`).
+- Estrutura de pastas inspirada em **Clean Architecture / Feature-Based Design**.
+- Integração com API externa isolada em `exchangeService.ts`.
+- Testes unitários cobrindo regras de negócio e arredondamento monetário.
+
+---
+
+## 🚀 Executar localmente
+
+```bash
+# Instalar dependências
 npm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
+# Rodar em ambiente de desenvolvimento
 npm run dev
-```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
+# Rodar testes unitários
 npm run test:unit
-```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
+# Build de produção
 npm run build
-npm run test:e2e
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+---
 
-```sh
-npm run lint
-```
+## 🧾 Licença
+
+Este projeto é open source e pode ser usado como base para estudos, aprimoramento de arquitetura Vue e integração com APIs financeiras.
+
+---
+
+💬 _Desenvolvido com atenção a detalhes e boas práticas de frontend moderno._
