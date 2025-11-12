@@ -1,7 +1,7 @@
----
-
-```markdown
 # 💸 Gorjeta.Go
+> Uma calculadora de gorjetas moderna, responsiva e integrada a APIs de câmbio em tempo real.
+
+[![Deploy on Vercel](https://vercel.com/button)](https://gorjeta-go.vercel.app/)
 
 **Gorjeta.Go** é uma aplicação web desenvolvida com **Vue 3 + TypeScript** para cálculo inteligente e visual de gorjetas.  
 Totalmente reativa, responsiva e com suporte à conversão de moedas em tempo real (USD, EUR → BRL), a interface oferece uma experiência fluida tanto em **desktop quanto mobile**.
@@ -12,7 +12,7 @@ Totalmente reativa, responsiva e com suporte à conversão de moedas em tempo re
 
 ## ✨ Funcionalidades principais
 
-- 🧮 **Cálculo automático e reativo**: informe o valor da conta, o percentual da gorjeta e o número de pessoas — os resultados são exibidos instantaneamente, sem botão de cálculo.
+- 🧮 **Cálculo automático e reativo**: informe o valor da conta, o percentual da gorjeta e o número de pessoas — os resultados são exibidos instantaneamente.
 - 💱 **Conversão de moedas**: suporte a **USD** e **EUR**, com conversão dinâmica para **BRL** via [AwesomeAPI](https://docs.awesomeapi.com.br/api-de-moedas).
 - 📱 **Layout responsivo e moderno**: pensado para oferecer uma navegação agradável em mobile e desktop.
 - 🎨 **UI refinada com ShadCN + TailwindCSS**: componentes reutilizáveis e acessíveis, mantendo consistência visual e performance.
@@ -41,8 +41,7 @@ Totalmente reativa, responsiva e com suporte à conversão de moedas em tempo re
 
 A aplicação segue uma estrutura modular baseada em **features**, garantindo clareza e fácil expansão:
 
-```
-
+```bash
 src/
 ├─ app/                  # Configurações globais, rotas e layout
 ├─ components/           # Componentes genéricos (base / ui)
@@ -53,7 +52,6 @@ src/
 │       ├─ services/     # Requisições HTTP (AwesomeAPI)
 │       └─ utils/        # Helpers de formatação e arredondamento
 └─ assets/               # Estilos globais e ícones
-
 ```
 
 ---
@@ -83,12 +81,6 @@ npm run test:unit
 # Build de produção
 npm run build
 ```
-
----
-
-## 🧾 Licença
-
-Este projeto é open source e pode ser usado como base para estudos, aprimoramento de arquitetura Vue e integração com APIs financeiras.
 
 ---
 
