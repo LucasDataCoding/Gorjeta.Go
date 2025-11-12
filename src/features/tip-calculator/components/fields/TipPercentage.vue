@@ -16,5 +16,5 @@
 
 <script lang="ts" setup>
 import { ref, type Ref } from 'vue'
-import FieldNumber from '@/components/forms/fields/FieldNumber.vue'
+import FieldNumber from '@/components/fields/FieldNumber.vue'
 </script>

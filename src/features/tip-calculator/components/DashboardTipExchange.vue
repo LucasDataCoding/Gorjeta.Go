@@ -150,19 +150,19 @@
 
 <script lang="ts" setup>
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import CardContent from '../CardContent.vue'
-import HeaderInfo from '../ui/card/HeaderInfo.vue'
-import Progress from '../ui/progress/Progress.vue'
-import MainSection from '../../layout/MainSection.vue'
+import CardContent from '../../../components/CardContent.vue'
+import HeaderInfo from '../../../components/ui/card/HeaderInfo.vue'
+import Progress from '../../../components/ui/progress/Progress.vue'
+import MainSection from '../../../layout/MainSection.vue'
 import { DonutChart } from '@/components/ui/chart-donut'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { toast } from 'vue-sonner'
 import { computed, ref } from 'vue'
-import { useTipCalculatorForm } from '@/stores/tipCalculatorForm'
-import { maxTipPercentage, minTipPercentage } from '@/constants/tipValues'
+import { useTipCalculatorForm } from '@/features/tip-calculator/stores/tipCalculatorForm'
+import { maxTipPercentage, minTipPercentage } from '@/features/tip-calculator/constants/tipValues'
 import { useCurrentExchangeRateValues } from '@/composables/exchangeRate'
 import { formatMoneyVisual } from '@/helpers/money'
-import TooltipBasic from '../ui/tooltip/TooltipBasic.vue'
+import TooltipBasic from '../../../components/ui/tooltip/TooltipBasic.vue'
 
 const tab = ref('0')
 

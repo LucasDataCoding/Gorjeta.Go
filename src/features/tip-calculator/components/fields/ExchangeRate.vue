@@ -31,8 +31,8 @@ import DropdownMenuSeparator from '@/components/ui/dropdown-menu/DropdownMenuSep
 import DropdownMenuRadioItem from '@/components/ui/dropdown-menu/DropdownMenuRadioItem.vue'
 import DropdownMenuRadioGroup from '@/components/ui/dropdown-menu/DropdownMenuRadioGroup.vue'
 import { computed, Ref, ref, watch, type ComputedRef } from 'vue'
-import type { ICoinLabels } from '@/types/fields'
-import { coins } from '@/constants/exchangeRate'
+import type { ICoinLabels } from '@/features/tip-calculator/types/fields'
+import { coins } from '@/features/tip-calculator/constants/exchangeRate'
 
 const props = defineProps({
   modelValue: String,
@@ -40,7 +40,7 @@ const props = defineProps({
 
 const currentExchangeValue: Ref<string> = ref(props.modelValue || '')
 const currentExchange: ComputedRef<ICoinLabels> = computed(
-  () => coins.find((c) => c.value === currentExchangeValue.value) || (coins[0] as ICoinLabels),
+  () => coins.find((c) => c.value === currentExchangeValue.value) || (coins[0] as ICoinLabels)
 )
 
 const emits = defineEmits(['update:modelValue'])
@@ -49,6 +49,6 @@ watch(
   () => {
     emits('update:modelValue', currentExchange.value)
   },
-  { immediate: true },
+  { immediate: true }
 )
 </script>

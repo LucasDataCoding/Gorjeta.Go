@@ -1,4 +1,4 @@
-import type { ICoinLabels } from '@/types/fields'
+import type { ICoinLabels } from '@/features/tip-calculator/types/fields'
 
 export const coins: ICoinLabels[] = [
   {

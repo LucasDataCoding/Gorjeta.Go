@@ -28,7 +28,7 @@
 import TopBar from '@/components/TopBar.vue'
 import FooterCopyright from '@/components/FooterCopyright.vue'
 import FormDashboard from '@/layout/FormDashboard.vue'
-import FormConversion from '@/components/forms/conversion/FormConversion.vue'
-import DashboardTipExchange from '@/components/dashboards/DashboardTipExchange.vue'
+import FormConversion from '@/features/tip-calculator/components/FormConversion.vue'
+import DashboardTipExchange from '@/features/tip-calculator/components/DashboardTipExchange.vue'
 import ContainerSection from '@/layout/ContainerSection.vue'
 </script>

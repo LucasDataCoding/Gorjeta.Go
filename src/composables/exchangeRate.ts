@@ -1,11 +1,14 @@
-import type { ICoinLabels } from '@/types/fields'
+import type { ICoinLabels } from '@/features/tip-calculator/types/fields'
 import { computed, ref, watch, type Ref } from 'vue'
 import axios from 'axios'
-import { coins, coinsValues } from '@/constants/exchangeRate'
+import { coins, coinsValues } from '@/features/tip-calculator/constants/exchangeRate'
 import { useRoute } from 'vue-router'
-import type { IFormCalculatorTip } from '@/types/forms'
+import type { IFormCalculatorTip } from '@/features/tip-calculator/types/forms'
 import { roundMoneyUp } from '@/helpers/money'
-import type { IExchangeRateResponse, IExchangeRateApiItemResponse } from '@/types/api/exchange'
+import type {
+  IExchangeRateResponse,
+  IExchangeRateApiItemResponse,
+} from '@/features/tip-calculator/types/api/exchange'
 
 export function useParseQueryAtributtesForm() {
   const route = useRoute()

@@ -30,10 +30,10 @@
 
 <script lang="ts" setup>
 import TipValue from './fields/TipValue.vue'
-import FieldQuantity from '../fields/FieldQuantity.vue'
-import { useTipCalculatorForm } from '@/stores/tipCalculatorForm'
+import FieldQuantity from '@/components/fields/FieldQuantity.vue'
+import { useTipCalculatorForm } from '../stores/tipCalculatorForm'
 
-import FieldNumber from '@/components/forms/fields/FieldNumber.vue'
+import FieldNumber from '@/components/fields/FieldNumber.vue'
 import ExchangeRate from './fields/ExchangeRate.vue'
 
 const tipCalculatorForm = useTipCalculatorForm()

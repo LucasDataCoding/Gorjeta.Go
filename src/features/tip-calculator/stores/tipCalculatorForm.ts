@@ -1,8 +1,11 @@
 import { ref, computed, watch, type Ref, type ComputedRef } from 'vue'
 import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
-import { coins } from '@/constants/exchangeRate'
-import type { IFormCalculatorTip, IFormCalculatorTipFromQuery } from '@/types/forms'
+import { coins } from '@/features/tip-calculator/constants/exchangeRate'
+import type {
+  IFormCalculatorTip,
+  IFormCalculatorTipFromQuery,
+} from '@/features/tip-calculator/types/forms'
 import { roundMoneyUp } from '@/helpers/money'
 import { useParseQueryAtributtesForm, useCalculateTipInfos } from '@/composables/exchangeRate'
 
