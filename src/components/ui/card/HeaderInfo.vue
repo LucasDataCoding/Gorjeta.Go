@@ -15,7 +15,10 @@
         </template>
 
         <template #content>
-          <slot name="bottom" />
+          <div v-if="secondaryTooltip">
+            {{ secondaryTooltip }}
+          </div>
+          <slot v-else name="bottom" />
         </template>
       </TooltipBasic>
     </div>
@@ -25,4 +28,8 @@
 <script lang="ts" setup>
 import CardContent from '@/components/CardContent.vue'
 import TooltipBasic from '@/components/ui/tooltip/TooltipBasic.vue'
+
+defineProps({
+  secondaryTooltip: String,
+})
 </script>

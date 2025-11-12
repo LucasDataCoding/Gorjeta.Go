@@ -39,7 +39,10 @@
       </div>
 
       <div class="col-span-6">
-        <HeaderInfo class="h-full">
+        <HeaderInfo
+          class="h-full"
+          :secondary-tooltip="`${tipCalculatorForm.fieldsParameters.tipPercentage}%`"
+        >
           <template #top>
             Gorjeta em
             {{ tipCalculatorForm.fieldsParameters.exchangeRate?.sufix }}
