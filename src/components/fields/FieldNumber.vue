@@ -12,7 +12,8 @@
     >
 
     <div
-      class="text-lg mt-2 bg-white rounded-xl flex items-center pl-3 h-[50px] overflow-hidden outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-purple transition"
+      class="text-lg bg-white rounded-xl flex items-center pl-3 h-[50px] overflow-hidden outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-purple transition"
+      :class="{ 'mt-2': !isHorizontal }"
     >
       <button
         v-if="isQuantity"
@@ -54,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps({
   label: { type: String, required: true },
@@ -71,6 +72,7 @@ const props = defineProps({
   },
   isHorizontal: Boolean,
   isQuantity: Boolean,
+  isInt: Boolean,
   isLableSecondary: Boolean,
 })
 
@@ -100,7 +102,7 @@ function formatInputValue(inputValue: number | string) {
     valueReturned = props.min
   }
 
-  return valueReturned
+  return props.isInt ? Math.floor(valueReturned) : valueReturned
 }
 
 const modelValueTemp = ref(String(props.modelValue ?? ''))
@@ -108,7 +110,7 @@ const modelValueTemp = ref(String(props.modelValue ?? ''))
 watch(
   () => props.modelValue,
   (val) => {
-    modelValueTemp.value = String(val ?? '')
+    modelValueTemp.value = String(formatInputValue(val ?? ''))
   },
   { immediate: true }
 )

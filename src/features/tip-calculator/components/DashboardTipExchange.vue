@@ -160,7 +160,7 @@ import { toast } from 'vue-sonner'
 import { computed, ref } from 'vue'
 import { useTipCalculatorForm } from '@/features/tip-calculator/stores/tipCalculatorForm'
 import { maxTipPercentage, minTipPercentage } from '@/features/tip-calculator/constants/tipValues'
-import { useCurrentExchangeRateValues } from '@/composables/exchangeRate'
+import { useCurrentExchangeRateValues } from '@/features/tip-calculator/composables/exchangeRate'
 import { formatMoneyVisual } from '@/helpers/money'
 import TooltipBasic from '../../../components/ui/tooltip/TooltipBasic.vue'
 

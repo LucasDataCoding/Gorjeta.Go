@@ -5,7 +5,7 @@
     </div>
 
     <div class="lg:grid grid-cols-12 gap-10 space-y-3 lg:space-y-0">
-      <div class="col-span-7 space-y-5">
+      <div class="col-span-7 space-y-8">
         <TipPreOptions v-model="currentPercentage" />
 
         <TipPercentage v-model="currentPercentage" class="w-full" />

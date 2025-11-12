@@ -24,6 +24,7 @@
       :min="2"
       :max="16"
       input-name="numero-pessoas"
+      is-int
     />
   </form>
 </template>

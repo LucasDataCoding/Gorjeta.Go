@@ -7,7 +7,10 @@ import type {
   IFormCalculatorTipFromQuery,
 } from '@/features/tip-calculator/types/forms'
 import { roundMoneyUp } from '@/helpers/money'
-import { useParseQueryAtributtesForm, useCalculateTipInfos } from '@/composables/exchangeRate'
+import {
+  useParseQueryAtributtesForm,
+  useCalculateTipInfos,
+} from '@/features/tip-calculator/composables/exchangeRate'
 
 export const useTipCalculatorForm = defineStore('tipCalculator', () => {
   const fieldsParameters: Ref<IFormCalculatorTip> = useParseQueryAtributtesForm()
