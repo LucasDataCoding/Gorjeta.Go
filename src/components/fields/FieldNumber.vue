@@ -1,7 +1,7 @@
 <template>
   <div
     :class="{
-      'flex items-center justify-between lg:justify-start space-x-3 lg:space-x-10': isHorizontal,
+      'flex items-center justify-between space-x-3 lg:space-x-10': isHorizontal,
     }"
   >
     <label
